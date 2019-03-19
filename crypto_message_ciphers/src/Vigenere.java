@@ -11,7 +11,7 @@ public class Vigenere {
      * @param message  the message that needs to be encrypted using key
      * @return the encrypted string
      */
-    private static String Encrypt(String key, String message)
+    public static String Encrypt(String key, String message)
     {
         //String EncryptedMessage = "";
         StringBuilder EncryptedMessage = new StringBuilder();
@@ -39,7 +39,7 @@ public class Vigenere {
      * @param message the message that needs to be decrypted
      * @return the decrypted string
      */
-    private static String Decrypt(String key, String message)
+    public static String Decrypt(String key, String message)
     {
         //String DecryptedMessage = "";
         StringBuilder DecryptedMessage = new StringBuilder();
@@ -70,7 +70,7 @@ public class Vigenere {
      * @param message  the message that needs to be encrypted using key
      * @return the encrypted string
      */
-    private static String Encrypt2(String key, String message)
+    public static String Encrypt2(String key, String message)
     {
         //String EncryptedMessage = "";
         StringBuilder EncryptedMessage = new StringBuilder();
@@ -90,7 +90,7 @@ public class Vigenere {
      * @param message the message that needs to be decrypted
      * @return the decrypted string
      */
-    private static String Decrypt2(String key, String message)
+    public static String Decrypt2(String key, String message)
     {
         //String DecryptMessage = "";
         StringBuilder DecryptedMessage = new StringBuilder();
