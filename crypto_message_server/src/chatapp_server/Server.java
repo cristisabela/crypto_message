@@ -87,13 +87,13 @@ public class Server extends JFrame{
             showMessage("\n" + message);
         } catch (ClassNotFoundException classNotFound) {
             showMessage("\nCould not understand message!");
-        } while(!message.equals("CLIENT - STOP"));
+        } while(!message.equals("SERVER - STOP"));
     }
 
     //Clean up after messaging app has been closed
     //Close streams and sockets
     private void closeApp(){
-        showMessage("\nClosing Connections...");
+        showMessage("\nClosing Connections...\n");
         //stops users from being able to type when app is closing
         ableToType(false);
         try {
@@ -121,7 +121,7 @@ public class Server extends JFrame{
             //???show plaintext and ciphertext here????
             showMessage("\nSERVER - " + message);
         }catch(IOException ioexception){
-            chatWindow.append("\n\nERROR: WAS NOT ABLE TO SEND MESSAGE TO CLIENT");
+            chatWindow.append("\n\nSERVER ERROR: WAS NOT ABLE TO SEND MESSAGE TO CLIENT");
             ioexception.printStackTrace();
         }
     }

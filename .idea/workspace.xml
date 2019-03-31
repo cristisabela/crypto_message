@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34b27319-b3d6-4639-8da1-b59ece61d24c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../crypto_message_client/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../crypto_message_ciphers/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto_message_ciphers/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../crypto_message_client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto_message_client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../crypto_message_client/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto_message_client/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../crypto_message_client/src/ClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../crypto_message_client/src/ClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/crypto_message_server/META-INF/crypto_message_server.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/crypto_message_server/chatapp_server/Server$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/crypto_message_server/chatapp_server/Server$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/crypto_message_server/chatapp_server/Server$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/crypto_message_server/chatapp_server/Server$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/crypto_message_server/chatapp_server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/crypto_message_server/chatapp_server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chatapp_server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatapp_server/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="34b27319-b3d6-4639-8da1-b59ece61d24c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,29 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/chatapp_server/ServerTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/chatapp_server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="95" column="47" selection-start-line="95" selection-start-column="47" selection-end-line="95" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -57,14 +22,13 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>ChatMessage</find>
-      <find>sendServerMessage</find>
     </findStrings>
     <replaceStrings>
       <replace>Message</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -82,42 +46,23 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="950" />
+    <option name="width" value="979" />
+    <option name="height" value="1040" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="crypto-message" type="58d84e3e:PackageViewProjectNode" />
-              <item name="crypto_message_server" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="crypto-message" type="58d84e3e:PackageViewProjectNode" />
-              <item name="crypto_message_server" type="616d4139:PackageViewModuleNode" />
-              <item name="chatapp_server" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552770729847" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/crypto_message_server" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
@@ -179,8 +124,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="762" y="0" width="781" height="830" extended-state="0" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3360215" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -191,7 +135,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33524355" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33144477" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -217,15 +161,15 @@
     <entry file="file://$PROJECT_DIR$/src/chatapp/ServerGUI.java" />
     <entry file="file://$PROJECT_DIR$/src/chatapp_server/ServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        <state relative-caret-position="136">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chatapp_server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="95" column="47" selection-start-line="95" selection-start-column="47" selection-end-line="95" selection-end-column="47" />
+        <state relative-caret-position="204">
+          <caret line="90" column="5" lean-forward="true" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
