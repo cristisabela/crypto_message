@@ -6,6 +6,8 @@ import java.io.*;
 import java.net.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Base64;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 
 public class Client extends JFrame {
@@ -17,6 +19,12 @@ public class Client extends JFrame {
     private String message = "";
     private String serverIP;
     private Socket connection;
+
+    // ADDED CODE
+    /*
+    private static AES aescipher;
+    private static Vigenere vigenerecipher;
+     */
 
     //constructor
     public Client(String host){
@@ -38,6 +46,12 @@ public class Client extends JFrame {
         add(new JScrollPane(chatWindow),BorderLayout.CENTER);
         setSize(1000,500);
         setVisible(true);
+
+        // ADDED CODE
+        /*
+        vigenerecipher = new Vigenere();
+        aescipher = new AES();
+        */
     }
 
     //connect to Server
@@ -45,6 +59,11 @@ public class Client extends JFrame {
         try{
             connectToServer();
             setupStreams();
+            // ADDED CODE
+            /*
+            readVigenereKey();
+            readAESKey();
+             */
             whileChatting();
         }catch(EOFException eofException){
             showMessage("\n Client ended connection!");
@@ -71,6 +90,34 @@ public class Client extends JFrame {
         showMessage("\nYour streams are now connected\n");
     }
 
+    // ADDED CODE
+    /*
+    // Read the AES Key sent from the server
+    private void readAESKey()
+    {
+        try{
+            aescipher.setAESKey(new SecretKeySpec(Base64.getDecoder().decode(input.readObject().toString().getBytes()), "AES"));
+            System.out.println(aescipher.getAESKey().getEncoded());
+        }catch(Exception e) {
+            showMessage("Oops, couldn't read AES key.");
+            e.printStackTrace();
+        }
+    }
+
+    //Read the Vigenere Key sent from the server
+    private void readVigenereKey()
+    {
+        try{
+            vigenerecipher.setKey((String) input.readObject());
+        }catch (ClassNotFoundException cnfe){
+            showMessage("Oops, couldn't, read the vigenere key.");
+            cnfe.printStackTrace();
+        }catch (IOException io){
+            showMessage("Oops, couldn't, read the vigenere key.");
+            io.printStackTrace();
+        }
+    }*/
+
     //while chatting with server
     private void whileChatting() throws IOException{
         ableToType(true);
@@ -79,17 +126,58 @@ public class Client extends JFrame {
             //message type is the actual message that comes in
             //?????Decryption occurs here??????
             message = (String) input.readObject();
-            showMessage("\n" + message);
+            // ADDED CODE
+            /*if (!message.contains("You are connected!\nYou can start chatting"))
+            {
+                showMessage("\nSERVER - " + message);
+
+                String vd_msg;
+                String ad_msg;
+                //String rd_msg;
+
+                if(message.contains("VIGENERE - "))
+                {
+                    vd_msg= vigenerecipher.Decrypt(vigenerecipher.getKey(), message.substring(11));
+                    showMessage("\nSERVER - VIGENERE DECRYPTED: " + vd_msg);
+                }
+                else if(message.contains("AES - "))
+                {
+                    byte[] decoded = Base64.getDecoder().decode(message.substring(6));
+
+                    ad_msg = aescipher.Decrypt(decoded, aescipher.getAESKey());
+                    showMessage("\nSERVER - AES DECRYPTED: " + ad_msg);
+                }
+            }
+            else
+            {
+                showMessage("\n" + message);
+            }*/
+
+            showMessage("\n" + message); // THIS WILL BE REMOVED
         } catch (ClassNotFoundException classNotFound) {
             showMessage("\nCould not understand message!");
-        } while(!message.equals("CLIENT - STOP"));
+        } while(!message.equals("STOP"));
     }
 
     //send message to the server
     private void sendClientMessage(String message){
         try{
             //Encryption occurs here
-            output.writeObject("SERVER - " + message);
+            // ADDED CODE
+            /*
+            //VIGENERE ENCRYPTION
+            String ve_msg = vigenerecipher.Encrypt(vigenerecipher.getKey(), message);
+            output.writeObject("VIGENERE - " + ve_msg);
+            output.flush();
+
+            //AES ENCRYPTION
+            byte[] ae_msg = aescipher.Encrypt(message, aescipher.getAESKey());
+            output.writeObject("AES - " + Base64.getEncoder().encodeToString(ae_msg));
+            output.flush();
+            */
+
+            //These next 2 lines will need to be removed
+            output.writeObject("CLIENT - " + message);
             output.flush();
             //this shows the message on the GUI
             //???show plaintext and ciphertext here????

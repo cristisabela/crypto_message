@@ -1,67 +1,38 @@
-public class Vigenere {
-    private static String punctuation = "!@#$%^&*()_-=+[]{}\\|:;\"\'<>,.?/";
-    private static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+import java.nio.charset.Charset;
+import java.util.Random;
 
-    //private static long start_time = 0;
-    //private static long end_time = 0;
+public class Vigenere {
+
+    private static String Key;  // The generated key
 
     /**
-     * Uses Vigenere's polyalphabetic cipher to encrypt text
-     * @param key the encryption key
-     * @param message  the message that needs to be encrypted using key
-     * @return the encrypted string
+     * Generates a random 20 byte key from the ASCII character set
+     * @return the newly generated key
      */
-    public static String Encrypt(String key, String message)
+    public static void generate_key()
     {
-        //String EncryptedMessage = "";
-        StringBuilder EncryptedMessage = new StringBuilder();
-        for(int i =0; i < message.length(); i++)
-        {
-            //If the character is a punctuation mark or a space, keep it
-            if((punctuation.indexOf(message.charAt(i)) != -1)|| (int)message.charAt(i) == 32)
-            {
-                //EncryptedMessage += message.charAt(i);
-                EncryptedMessage.append(message.charAt(i));
-                continue;
-            }
-
-            int number = (alphabet.indexOf(message.charAt(i)) + alphabet.indexOf(key.charAt(i % key.length()))) % 52;
-            //EncryptedMessage += alphabet.charAt(number);
-            EncryptedMessage.append(alphabet.charAt(number));
-        }
-        //return EncryptedMessage;
-        return EncryptedMessage.toString();
+        byte[] array = new byte[20];
+        new Random().nextBytes(array);
+        String key = new String(array, Charset.forName("ASCII"));
+        Key = key;
+        //return key;
     }
 
     /**
-     * Uses Vigenere's polyalphabetic cipher to decrypt text
-     * @param key the decryption key
-     * @param message the message that needs to be decrypted
-     * @return the decrypted string
+     * Returns the generated key used for encryption and decryption
+     * of the vigenere cipher.
+     * @return the key
      */
-    public static String Decrypt(String key, String message)
-    {
-        //String DecryptedMessage = "";
-        StringBuilder DecryptedMessage = new StringBuilder();
+    public static String getKey(){
+        return Key;
+    }
 
-        for(int i =0; i < message.length(); i++)
-        {
-            //If the character is a punctuation mark or a space, keep it
-            if((punctuation.indexOf(message.charAt(i)) != -1)|| (int)message.charAt(i) == 32)
-            {
-                //DecryptedMessage += message.charAt(i);
-                DecryptedMessage.append(message.charAt(i));
-                continue;
-            }
-
-            int number = (alphabet.indexOf(message.charAt(i)) - alphabet.indexOf(key.charAt(i % key.length()))) % 52;
-            if (number < 0)
-                number += 52;
-            //DecryptedMessage += alphabet.charAt(number);
-            DecryptedMessage.append(alphabet.charAt(number));
-        }
-        //return DecryptedMessage;
-        return DecryptedMessage.toString();
+    /**
+     * Sets the key for encryption when generated and shared from another party
+     * @param key
+     */
+    public static void setKey(String key){
+        Key=key;
     }
 
     /**
@@ -70,18 +41,16 @@ public class Vigenere {
      * @param message  the message that needs to be encrypted using key
      * @return the encrypted string
      */
-    public static String Encrypt2(String key, String message)
+    public static String Encrypt(String key, String message)
     {
-        //String EncryptedMessage = "";
         StringBuilder EncryptedMessage = new StringBuilder();
         for(int i =0; i < message.length(); i++)
         {
+            // message character numerical value + key character numerical value % 128 (size of ASCII)
             EncryptedMessage.append((char)(((int)message.charAt(i) + (int)key.charAt(i % key.length())) % 128));
-            //EncryptedMessage += (char)(((int)message.charAt(i) + (int)key.charAt(i % key.length())) % 128);
         }
 
         return EncryptedMessage.toString();
-        //return EncryptedMessage;
     }
 
     /**
@@ -90,52 +59,55 @@ public class Vigenere {
      * @param message the message that needs to be decrypted
      * @return the decrypted string
      */
-    public static String Decrypt2(String key, String message)
+    public static String Decrypt(String key, String message)
     {
-        //String DecryptMessage = "";
         StringBuilder DecryptedMessage = new StringBuilder();
         for(int i =0; i < message.length(); i++)
         {
+            // message character numerical value - key character numerical value % 128 (size of ASCII)
             int number = ((int)message.charAt(i) - (int)key.charAt(i % key.length())) % 128;
+
+            // convert any negative numbers to their positive equivalent so that they can be cast to correct char
             if(number < 0)
                 number += 128;
             DecryptedMessage.append((char)number);
-            //DecryptedMessage += (char)number;
         }
 
-        //return DecryptedMessage;
         return DecryptedMessage.toString();
     }
 
-    /*private static void timing(String header){
-
-        System.out.println("\nMemory available at " + header + " (Free/Total): ( " +
-                Runtime.getRuntime().freeMemory() + " / " +
-                Runtime.getRuntime().totalMemory() + " )");
-
-        System.out.println("Time at " + header + ": " + (end_time - start_time) + "\n");
-
-    }*/
-
     public static void main(String[] args) {
-        String msg = "This is a test message that I want to encrypt using the Vigenere Cipher!! I can encrypt with vigenere in one of two ways." +
-                " I could just encrypt the letter, and add some padding characters for spacing, OR I could use the ASCII Table and just encrypt absolutely" +
-                " everything! Which may be better because it can encrypt spaces, punctuation, and numbers without more input from me. :)";
-        String key = "ASuperSecretLongKeyToULTRASECUREMyLongMessage";
-        System.out.println("Test Message: " + msg);
-        System.out.println("Key: " + key);
+        TimingTest time = new TimingTest();
 
-        //start_time = System.currentTimeMillis();
-        //end_time = start_time;
-        String e_msg = Encrypt(key, msg);
-        String e_msg2 = Encrypt2(key, msg);
-        System.out.println("Regular Encrypt: " + e_msg);
-        System.out.println("ASCII Encrypt: " + e_msg2);
-        //end_time = System.currentTimeMillis();
-        //timing("After Encryption: ");
-        System.out.println("Regular Decrypt: " + Decrypt(key, e_msg));
-        //end_time = System.currentTimeMillis();
-        //timing("After Decryption: ");
-        System.out.println("ASCII Decrypt: " + Decrypt2(key, e_msg2));
+        //Long Message and key for testing
+        String msg = "This is a test message that I want to encrypt using this cipher! I want to see how long" +
+                " it will take to encrypt and decrypt this message so that I can see how efficient this algorithm is." +
+                " This is why this test message is so long.";
+
+        //Set start time, and initialize end time
+        time.stime = System.currentTimeMillis();
+        time.etime = time.stime;
+
+        //Initialize the key
+        generate_key(); // "ALongKeyToSecureTheMessage";
+
+        time.etime = System.currentTimeMillis();
+        time.timing("Key Initialization: ");
+
+        //Encrypt the message
+        String e_msg = Encrypt(Key, msg);
+        System.out.println("Encrypted: " + e_msg);
+
+        //Set the end time after encryption and print it
+        time.etime = System.currentTimeMillis();
+        time.timing("Encryption Time: ");
+
+        //Decrypt message
+        String d_msg = Decrypt(Key, e_msg);
+        System.out.println("Decrypted: " + d_msg);
+
+        //Set the end time after decryption
+        time.etime = System.currentTimeMillis();
+        time.timing("After Decryption: ");
     }
 }
