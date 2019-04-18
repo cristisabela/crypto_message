@@ -1,17 +1,15 @@
-import com.sun.deploy.panel.JSmartTextArea;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import org.omg.IOP.IOR;
-
-import java.io.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Base64;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.Base64;
 
 public class Client extends JFrame {
-
     private JTextField userText;
     private JTextArea chatWindow;
     private ObjectOutputStream output;
@@ -20,11 +18,10 @@ public class Client extends JFrame {
     private String serverIP;
     private Socket connection;
 
-    // ADDED CODE
-    /*
+    private static RSA rsacipher;
     private static AES aescipher;
     private static Vigenere vigenerecipher;
-     */
+
 
     //constructor
     public Client(String host){
@@ -33,13 +30,13 @@ public class Client extends JFrame {
         userText = new JTextField();
         userText.setEditable(false);
         userText.addActionListener(
-            new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    sendClientMessage(e.getActionCommand());
-                    userText.setText("");
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sendClientMessage(e.getActionCommand());
+                        userText.setText("");
+                    }
                 }
-            }
         );
         add(userText, BorderLayout.NORTH);
         chatWindow = new JTextArea();
@@ -47,11 +44,9 @@ public class Client extends JFrame {
         setSize(1000,500);
         setVisible(true);
 
-        // ADDED CODE
-        /*
         vigenerecipher = new Vigenere();
         aescipher = new AES();
-        */
+        aescipher.initialize_key(128);
     }
 
     //connect to Server
@@ -59,11 +54,8 @@ public class Client extends JFrame {
         try{
             connectToServer();
             setupStreams();
-            // ADDED CODE
-            /*
             readVigenereKey();
             readAESKey();
-             */
             whileChatting();
         }catch(EOFException eofException){
             showMessage("\n Client ended connection!");
@@ -80,6 +72,7 @@ public class Client extends JFrame {
         //setting up the IP address and port numbers here
         connection = new Socket(InetAddress.getByName(serverIP), 6789);
         showMessage("Connected to: " + connection.getInetAddress().getHostName());
+
     }
 
     //set up streams and receive message
@@ -90,13 +83,14 @@ public class Client extends JFrame {
         showMessage("\nYour streams are now connected\n");
     }
 
-    // ADDED CODE
-    /*
-    // Read the AES Key sent from the server
     private void readAESKey()
     {
         try{
-            aescipher.setAESKey(new SecretKeySpec(Base64.getDecoder().decode(input.readObject().toString().getBytes()), "AES"));
+            String gottenkey = input.readObject().toString();
+            System.out.println(gottenkey);
+            byte[] keys = Base64.getDecoder().decode(gottenkey);
+            System.out.println(keys);
+            aescipher.setAESKey(new SecretKeySpec(keys, "AES"));
             System.out.println(aescipher.getAESKey().getEncoded());
         }catch(Exception e) {
             showMessage("Oops, couldn't read AES key.");
@@ -104,7 +98,6 @@ public class Client extends JFrame {
         }
     }
 
-    //Read the Vigenere Key sent from the server
     private void readVigenereKey()
     {
         try{
@@ -116,18 +109,22 @@ public class Client extends JFrame {
             showMessage("Oops, couldn't, read the vigenere key.");
             io.printStackTrace();
         }
-    }*/
+    }
 
     //while chatting with server
     private void whileChatting() throws IOException{
         ableToType(true);
-        sendClientMessage(message);
+        if(message != "")
+        {
+            sendClientMessage(message);
+        }
         do try {
             //message type is the actual message that comes in
             //?????Decryption occurs here??????
+
+            // Read the message
             message = (String) input.readObject();
-            // ADDED CODE
-            /*if (!message.contains("You are connected!\nYou can start chatting"))
+            if (!message.contains("You are connected!\nYou can start chatting"))
             {
                 showMessage("\nSERVER - " + message);
 
@@ -151,20 +148,17 @@ public class Client extends JFrame {
             else
             {
                 showMessage("\n" + message);
-            }*/
+            }
 
-            showMessage("\n" + message); // THIS WILL BE REMOVED
         } catch (ClassNotFoundException classNotFound) {
             showMessage("\nCould not understand message!");
-        } while(!message.equals("STOP"));
+        }
+        while(!message.equals("STOP"));
     }
 
     //send message to the server
     private void sendClientMessage(String message){
         try{
-            //Encryption occurs here
-            // ADDED CODE
-            /*
             //VIGENERE ENCRYPTION
             String ve_msg = vigenerecipher.Encrypt(vigenerecipher.getKey(), message);
             output.writeObject("VIGENERE - " + ve_msg);
@@ -174,13 +168,9 @@ public class Client extends JFrame {
             byte[] ae_msg = aescipher.Encrypt(message, aescipher.getAESKey());
             output.writeObject("AES - " + Base64.getEncoder().encodeToString(ae_msg));
             output.flush();
-            */
-
-            //These next 2 lines will need to be removed
-            output.writeObject("CLIENT - " + message);
-            output.flush();
             //this shows the message on the GUI
             //???show plaintext and ciphertext here????
+            //showMessage("\nCLIENT - Vigenere: " + ve_msg);
             showMessage("\nCLIENT - " + message);
         }catch(IOException io){
             chatWindow.append("\n\nCLIENT ERROR: WAS NOT ABLE TO SEND MESSAGE TO CLIENT");
@@ -199,7 +189,6 @@ public class Client extends JFrame {
                     }
                 }
         );
-
     }
 
     //closes steams and sockets
